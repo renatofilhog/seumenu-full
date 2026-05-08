@@ -1,0 +1,27 @@
+# Environment files (never commit secrets)
+.env
+.env.local
+.env.production
+.env.production.local
+erpfood-back/.env
+erpfood-back/.env.local
+seumenu-front/.env.local
+seumenu-front/.env.production
+seumenu-front/.env.production.local
+
+# SSL certificates (managed by certbot on host)
+nginx/certs/
+
+# Build artifacts
+erpfood-back/dist/
+seumenu-front/.next/
+seumenu-front/out/
+
+# Dependencies
+node_modules/
+erpfood-back/node_modules/
+seumenu-front/node_modules/
+
+# Logs
+*.log
+nginx_logs/

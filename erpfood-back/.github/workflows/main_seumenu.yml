@@ -1,0 +1,29 @@
+name: Deploy to Azure VM via SSH
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            sudo systemctl stop apiseumenu
+            cd /home/seumenu/apiseumenu
+            git pull origin main
+            /home/seumenu/.nvm/versions/node/v24.13.0/bin/npm install
+            /home/seumenu/.nvm/versions/node/v24.13.0/bin/npm run build
+            /home/seumenu/.nvm/versions/node/v24.13.0/bin/npx knex migrate:latest
+            sudo systemctl start apiseumenu

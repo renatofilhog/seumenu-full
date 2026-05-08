@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@500;700;800;900&display=swap");
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Intro";
+  src: url("/brand/fonts/NHRFMX_Intro.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Intro";
+  src: url("/brand/fonts/NHRFMX_Intro-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Intro";
+  src: url("/brand/fonts/NHRFMX_Intro-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-white: #ffffff;
+
+  --color-green-50: #f0f9f2;
+  --color-green-100: #daf1df;
+  --color-green-200: #b8e2c3;
+  --color-green-300: #8acb9f;
+  --color-green-400: #58af77;
+  --color-green-500: #37945b;
+  --color-green-600: #267546;
+  --color-green-700: #1e5e3a;
+  --color-green-800: #1a4b2f;
+  --color-green-900: #163e28;
+  --color-green-950: #0c2217;
+
+  --color-blue-50: #f3f6fc;
+  --color-blue-100: #e7eef7;
+  --color-blue-200: #c9d9ee;
+  --color-blue-300: #9ab8df;
+  --color-blue-400: #6497cc;
+  --color-blue-500: #4079b7;
+  --color-blue-600: #2f609a;
+  --color-blue-700: #274c7d;
+  --color-blue-800: #244268;
+  --color-blue-900: #233a59;
+  --color-blue-950: #17253a;
+
+  --color-gray-50: #f5f6f6;
+  --color-gray-100: #e6e7e7;
+  --color-gray-200: #cfd1d2;
+  --color-gray-300: #aeb1b2;
+  --color-gray-400: #85898b;
+  --color-gray-500: #6b6f72;
+  --color-gray-600: #5a5d60;
+  --color-gray-700: #4d4f51;
+  --color-gray-800: #434547;
+  --color-gray-900: #3b3c3e;
+  --color-gray-950: #252527;
+
+  --color-status-info: #2fb9d5;
+  --color-status-warning: #d1570b;
+  --color-status-danger: #ff0000;
+  --color-status-success: #06a759;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 42px;
+
+  --shadow-soft: 0px 4px 4px rgba(0, 0, 0, 0.04);
+  --shadow-soft-lg: 0px 4px 4px rgba(0, 0, 0, 0.06);
+
+  --background: var(--color-white);
+  --foreground: var(--color-gray-800);
+  --brand-navy: var(--color-blue-800);
+  --brand-green: var(--color-green-500);
+  --brand-green-deep: var(--color-status-success);
+  --brand-yellow: #e0dc00;
+  --brand-red: var(--color-status-danger);
+  --brand-ink: var(--color-gray-800);
+  --brand-sand: var(--color-gray-50);
+  --font-intro: "Intro", Arial, sans-serif;
+  --font-mulish: "Mulish", Arial, sans-serif;
+  --panel-shell-bg:
+    radial-gradient(circle at top right, rgba(154, 184, 223, 0.2), transparent 22%),
+    linear-gradient(180deg, #f8fbff 0%, #eef3f8 100%);
+  --panel-topbar-bg: var(--color-blue-800);
+  --panel-topbar-fg: var(--color-white);
+  --panel-toggle-ring: rgba(36, 66, 104, 0.14);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-green: var(--brand-green);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-red: var(--brand-red);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-sand: var(--brand-sand);
+  --font-sans: var(--font-mulish);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mulish), Arial, sans-serif;
+}
+
+[data-panel-theme="light"] {
+  --panel-shell-bg:
+    radial-gradient(circle at top right, rgba(154, 184, 223, 0.2), transparent 22%),
+    linear-gradient(180deg, #f8fbff 0%, #eef3f8 100%);
+  --panel-topbar-bg: var(--color-blue-800);
+  --panel-topbar-fg: var(--color-white);
+  --panel-toggle-ring: rgba(36, 66, 104, 0.14);
+}
+
+[data-panel-theme="dark"] {
+  --background: #08111d;
+  --foreground: #edf4fb;
+  --color-white: #101b2c;
+  --color-green-100: #173626;
+  --color-green-500: #38b46b;
+  --color-green-600: #2a9556;
+  --color-green-700: #1f7543;
+  --color-blue-50: #15263d;
+  --color-blue-100: #1b314e;
+  --color-blue-200: #274465;
+  --color-blue-300: #34587f;
+  --color-blue-400: #4e78a5;
+  --color-blue-500: #7ea6d0;
+  --color-blue-600: #aac8e5;
+  --color-blue-700: #d2e3f5;
+  --color-blue-800: #edf4fb;
+  --color-blue-900: #f8fbff;
+  --color-blue-950: #0a1320;
+  --color-gray-50: #0d1726;
+  --color-gray-100: #142032;
+  --color-gray-200: #243146;
+  --color-gray-300: #374960;
+  --color-gray-400: #8192a8;
+  --color-gray-500: #a9b8cb;
+  --color-gray-600: #c7d2df;
+  --color-gray-700: #d9e3ef;
+  --color-gray-800: #edf4fb;
+  --color-gray-900: #f8fbff;
+  --brand-navy: #d9e7f5;
+  --brand-green: #38b46b;
+  --brand-ink: #edf4fb;
+  --brand-sand: #0b1422;
+  --shadow-soft: 0px 10px 24px rgba(2, 6, 23, 0.28);
+  --shadow-soft-lg: 0px 18px 40px rgba(2, 6, 23, 0.4);
+  --panel-shell-bg:
+    radial-gradient(circle at top right, rgba(73, 182, 117, 0.12), transparent 24%),
+    linear-gradient(180deg, #07111d 0%, #0b1422 100%);
+  --panel-topbar-bg: #0a1320;
+  --panel-topbar-fg: #f8fbff;
+  --panel-toggle-ring: rgba(169, 184, 203, 0.28);
+}
+
+[data-panel-theme="dark"] .bg-white {
+  background-color: var(--color-white) !important;
+}
+
+[data-panel-theme="dark"] .text-white {
+  color: #f8fbff !important;
+}
+
+[data-panel-theme="dark"] button[class*="bg-[color:var(--brand-navy)]"],
+[data-panel-theme="dark"] a[class*="bg-[color:var(--brand-navy)]"],
+[data-panel-theme="dark"] button[class*="bg-[color:var(--color-blue-800)]"],
+[data-panel-theme="dark"] a[class*="bg-[color:var(--color-blue-800)]"] {
+  background-color: var(--brand-green) !important;
+  color: #f8fbff !important;
+}
+
+[data-panel-theme="dark"] button[class*="border-[color:var(--brand-navy)]"],
+[data-panel-theme="dark"] a[class*="border-[color:var(--brand-navy)]"] {
+  border-color: color-mix(in srgb, var(--brand-green) 32%, transparent) !important;
+  color: var(--brand-green) !important;
+}
+
+@keyframes float-shift {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(8px);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+}
+
+@keyframes seumenu-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.seumenu-loader-blink {
+  animation: seumenu-blink 1.1s ease-in-out infinite;
+}

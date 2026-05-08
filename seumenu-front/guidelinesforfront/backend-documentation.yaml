@@ -1,0 +1,1275 @@
+openapi: 3.0.0
+paths:
+  /user:
+    post:
+      operationId: UserController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - User
+    get:
+      operationId: UserController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      tags:
+        - User
+  /user/{id}:
+    get:
+      operationId: UserController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - User
+    patch:
+      operationId: UserController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - User
+    delete:
+      operationId: UserController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - User
+  /role:
+    post:
+      operationId: RoleController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+      tags:
+        - Role
+    get:
+      operationId: RoleController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+      tags:
+        - Role
+  /role/{id}:
+    get:
+      operationId: RoleController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+      tags:
+        - Role
+    patch:
+      operationId: RoleController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Role
+    delete:
+      operationId: RoleController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Role
+  /permission:
+    post:
+      operationId: PermissionController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePermissionDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+      tags:
+        - Permission
+    get:
+      operationId: PermissionController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Permission'
+      tags:
+        - Permission
+  /permission/{id}:
+    get:
+      operationId: PermissionController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+      tags:
+        - Permission
+    patch:
+      operationId: PermissionController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePermissionDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Permission
+    delete:
+      operationId: PermissionController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Permission
+  /product-group:
+    post:
+      operationId: ProductGroupController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductGroupDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductGroup'
+      tags:
+        - ProductGroup
+    get:
+      operationId: ProductGroupController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductGroup'
+      tags:
+        - ProductGroup
+  /product-group/{id}:
+    get:
+      operationId: ProductGroupController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductGroup'
+      tags:
+        - ProductGroup
+    patch:
+      operationId: ProductGroupController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductGroupDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductGroup'
+      tags:
+        - ProductGroup
+    delete:
+      operationId: ProductGroupController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductGroup'
+      tags:
+        - ProductGroup
+  /product:
+    post:
+      operationId: ProductController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      tags:
+        - Product
+    get:
+      operationId: ProductController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+      tags:
+        - Product
+  /product/{id}:
+    get:
+      operationId: ProductController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      tags:
+        - Product
+    patch:
+      operationId: ProductController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      tags:
+        - Product
+  /additional:
+    post:
+      operationId: AdditionalController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdditionalDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Additional'
+      tags:
+        - Additional
+    get:
+      operationId: AdditionalController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Additional'
+      tags:
+        - Additional
+  /additional/{id}:
+    get:
+      operationId: AdditionalController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Additional'
+      tags:
+        - Additional
+    patch:
+      operationId: AdditionalController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdditionalDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Additional'
+      tags:
+        - Additional
+  /mesa:
+    post:
+      operationId: MesaController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMesaDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mesa'
+      tags:
+        - Mesa
+    get:
+      operationId: MesaController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mesa'
+      tags:
+        - Mesa
+  /mesa/{id}:
+    get:
+      operationId: MesaController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mesa'
+      tags:
+        - Mesa
+    patch:
+      operationId: MesaController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMesaDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mesa'
+      tags:
+        - Mesa
+  /pedido:
+    post:
+      operationId: PedidoController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePedidoDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+      tags:
+        - Pedido
+    get:
+      operationId: PedidoController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedido'
+      tags:
+        - Pedido
+  /pedido/{id}:
+    get:
+      operationId: PedidoController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+      tags:
+        - Pedido
+    patch:
+      operationId: PedidoController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePedidoDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+      tags:
+        - Pedido
+  /pedido-status:
+    get:
+      operationId: PedidoStatusController_listStatuses
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PedidoStatusOptionDto'
+      tags:
+        - PedidoStatus
+  /pedido-status/kanban:
+    get:
+      operationId: PedidoStatusController_getKanban
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PedidoStatusColumnDto'
+      tags:
+        - PedidoStatus
+  /pedido-status/{id}:
+    patch:
+      operationId: PedidoStatusController_updateStatus
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePedidoStatusDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+      tags:
+        - PedidoStatus
+  /pedido-status/stream:
+    get:
+      operationId: PedidoStatusController_streamStatus
+      parameters: []
+      responses:
+        '200':
+          description: Stream de atualizacoes de status.
+      tags:
+        - PedidoStatus
+  /pedido-item:
+    get:
+      operationId: PedidoItemController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PedidoItem'
+      tags:
+        - PedidoItem
+  /pedido-item/{id}:
+    get:
+      operationId: PedidoItemController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PedidoItem'
+      tags:
+        - PedidoItem
+    patch:
+      operationId: PedidoItemController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePedidoItemDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PedidoItem'
+      tags:
+        - PedidoItem
+info:
+  title: ERPFood API
+  description: Documentação da API do ERPFood
+  version: 1.0-BETA
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    CreateUserDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        roleId:
+          type: number
+      required:
+        - nome
+        - email
+        - senha
+        - roleId
+    Role:
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        descricao:
+          type: string
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - nome
+        - descricao
+        - criadoEm
+        - atualizadoEm
+        - permissions
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+      required:
+        - id
+        - nome
+        - email
+        - role
+        - criadoEm
+        - atualizadoEm
+    CreateRoleDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        permissionIds:
+          type: array
+          items:
+            type: number
+      required:
+        - nome
+        - descricao
+    CreatePermissionDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        roleIds:
+          type: array
+          items:
+            type: number
+      required:
+        - nome
+        - descricao
+    Permission:
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        descricao:
+          type: string
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+      required:
+        - id
+        - nome
+        - roles
+        - descricao
+        - criadoEm
+        - atualizadoEm
+    CreateProductGroupDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        ativo:
+          type: boolean
+        ordem:
+          type: number
+      required:
+        - nome
+        - ativo
+        - ordem
+    ProductGroup:
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        ativo:
+          type: boolean
+        ordem:
+          type: number
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      required:
+        - id
+        - nome
+        - ativo
+        - ordem
+        - criadoEm
+        - atualizadoEm
+        - products
+    Additional:
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        quantidadeMax:
+          type: number
+        preco:
+          type: string
+        ativo:
+          type: boolean
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+      required:
+        - id
+        - nome
+        - quantidadeMax
+        - preco
+        - ativo
+        - products
+        - criadoEm
+        - atualizadoEm
+    Product:
+      type: object
+      properties:
+        id:
+          type: number
+        nome:
+          type: string
+        descricao:
+          type: string
+        preco:
+          type: string
+        ativo:
+          type: boolean
+        imagemUrl:
+          type: string
+        ordem:
+          type: number
+        grupo:
+          $ref: '#/components/schemas/ProductGroup'
+        additionals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Additional'
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+      required:
+        - id
+        - nome
+        - descricao
+        - preco
+        - ativo
+        - imagemUrl
+        - grupo
+        - additionals
+        - criadoEm
+        - atualizadoEm
+    CreateProductDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        preco:
+          type: string
+        ativo:
+          type: boolean
+        imagemUrl:
+          type: string
+        ordem:
+          type: number
+        grupoId:
+          type: number
+        additionalIds:
+          type: array
+          items:
+            type: number
+      required:
+        - nome
+        - descricao
+        - preco
+        - ativo
+        - imagemUrl
+        - grupoId
+    CreateAdditionalDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        quantidadeMax:
+          type: number
+        preco:
+          type: string
+        ativo:
+          type: boolean
+        productIds:
+          type: array
+          items:
+            type: number
+      required:
+        - nome
+        - quantidadeMax
+        - preco
+        - ativo
+    CreateMesaDto:
+      type: object
+      properties:
+        numero:
+          type: number
+        descricao:
+          type: string
+        setor:
+          type: string
+        ativo:
+          type: boolean
+      required:
+        - numero
+        - descricao
+        - setor
+        - ativo
+    Mesa:
+      type: object
+      properties:
+        id:
+          type: number
+        numero:
+          type: number
+        descricao:
+          type: string
+        setor:
+          type: string
+        ativo:
+          type: boolean
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+      required:
+        - id
+        - numero
+        - descricao
+        - setor
+        - ativo
+        - criadoEm
+        - atualizadoEm
+    CreatePedidoDto:
+      type: object
+      properties:
+        numero:
+          type: number
+        valorLiq:
+          type: string
+        valorDesc:
+          type: string
+        valorTotal:
+          type: string
+        data:
+          type: string
+        mesaId:
+          type: number
+        status:
+          type: string
+          enum:
+            - em_analise
+            - preparando
+            - feito
+        codCupom:
+          type: string
+      required:
+        - numero
+        - valorLiq
+        - valorDesc
+        - valorTotal
+        - data
+        - mesaId
+        - status
+    Pedido:
+      type: object
+      properties:
+        id:
+          type: number
+        numero:
+          type: number
+        valorLiq:
+          type: string
+        valorDesc:
+          type: string
+        valorTotal:
+          type: string
+        data:
+          format: date-time
+          type: string
+        status:
+          type: string
+          enum:
+            - em_analise
+            - preparando
+            - feito
+        codCupom:
+          type: string
+        mesa:
+          $ref: '#/components/schemas/Mesa'
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PedidoItem'
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+      required:
+        - id
+        - numero
+        - valorLiq
+        - valorDesc
+        - valorTotal
+        - data
+        - status
+        - mesa
+        - itens
+        - criadoEm
+        - atualizadoEm
+    PedidoItem:
+      type: object
+      properties:
+        id:
+          type: number
+        valorUnit:
+          type: string
+        qtSolicitada:
+          type: number
+        vlDesconto:
+          type: string
+        vlTotal:
+          type: string
+        pedido:
+          $ref: '#/components/schemas/Pedido'
+        produto:
+          $ref: '#/components/schemas/Product'
+        additionals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Additional'
+        criadoEm:
+          format: date-time
+          type: string
+        atualizadoEm:
+          format: date-time
+          type: string
+      required:
+        - id
+        - valorUnit
+        - qtSolicitada
+        - vlDesconto
+        - vlTotal
+        - pedido
+        - produto
+        - additionals
+        - criadoEm
+        - atualizadoEm
+    PedidoStatusOptionDto:
+      type: object
+      properties:
+        value:
+          type: string
+          enum:
+            - em_analise
+            - preparando
+            - feito
+        label:
+          type: string
+      required:
+        - value
+        - label
+    PedidoStatusColumnDto:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - em_analise
+            - preparando
+            - feito
+        pedidos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pedido'
+      required:
+        - status
+        - pedidos
+    UpdatePedidoStatusDto:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - em_analise
+            - preparando
+            - feito
+      required:
+        - status
+    CreatePedidoItemDto:
+      type: object
+      properties:
+        numeroPedido:
+          type: number
+        produtoId:
+          type: number
+        additionalIds:
+          type: array
+          items:
+            type: number
+        valorUnit:
+          type: string
+        qtSolicitada:
+          type: number
+        vlDesconto:
+          type: string
+        vlTotal:
+          type: string
+      required:
+        - numeroPedido
+        - produtoId
+        - valorUnit
+        - qtSolicitada
+        - vlDesconto
+        - vlTotal
