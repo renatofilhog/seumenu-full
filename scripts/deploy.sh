@@ -2,7 +2,8 @@
 # =============================================================
 # SeúMenu — Deploy Script
 # Uso: bash scripts/deploy.sh [--skip-migrations]
-# Roda git pull nos dois projetos e refaz o deploy em produção.
+# Roda git pull nos três repositórios (raiz, erpfood-back,
+# seumenu-front) e refaz o deploy em produção.
 # Deve ser executado dentro do diretório raiz do projeto (onde
 # está o docker-compose.yml e as pastas erpfood-back/ e seumenu-front/).
 # =============================================================
@@ -31,6 +32,24 @@ echo "   SeúMenu — Deploy de Produção"
 echo "   $(date '+%Y-%m-%d %H:%M:%S')"
 echo "=================================================="
 echo ""
+
+# ----- Step 0: git pull repo raiz (nginx, scripts, docker-compose.yml) -----
+info "Atualizando repositório raiz (nginx, scripts, docker-compose.yml)..."
+NGINX_CHANGED=false
+if [[ -d "$PROJECT_DIR/.git" ]]; then
+    ROOT_BEFORE=$(git rev-parse HEAD)
+    git pull origin main
+    ROOT_AFTER=$(git rev-parse HEAD)
+    if [[ "$ROOT_BEFORE" != "$ROOT_AFTER" ]]; then
+        success "Repositório raiz atualizado: $(git log --oneline -3)"
+        NGINX_FILES=$(git diff --name-only "$ROOT_BEFORE" "$ROOT_AFTER" -- nginx/ | wc -l)
+        [[ "$NGINX_FILES" -gt 0 ]] && NGINX_CHANGED=true
+    else
+        success "Repositório raiz já está na versão mais recente"
+    fi
+else
+    warn "Diretório raiz não é um repositório git. Pulando git pull."
+fi
 
 # ----- Step 1: git pull erpfood-back -----
 info "Atualizando erpfood-back..."
@@ -90,6 +109,15 @@ success "Build concluído"
 info "Subindo containers atualizados..."
 docker compose up -d --remove-orphans
 success "Containers atualizados"
+
+# ----- Step 4.1: Reload nginx se configuração mudou -----
+if [[ "$NGINX_CHANGED" == true ]]; then
+    info "Configuração nginx alterada — recarregando..."
+    docker compose exec -T nginx nginx -t \
+        && docker compose exec -T nginx nginx -s reload \
+        && success "Nginx recarregado" \
+        || warn "Falha ao recarregar nginx. Verifique: docker compose logs nginx"
+fi
 
 # ----- Step 5: Wait for backend health -----
 info "Aguardando backend ficar disponível..."

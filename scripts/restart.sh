@@ -33,6 +33,13 @@ info "Reiniciando os containers..."
 docker compose up -d --remove-orphans
 success "Containers reiniciados"
 
+# Nginx usa volume mount — reload aplica qualquer config alterada no disco sem downtime
+info "Recarregando nginx..."
+docker compose exec -T nginx nginx -t \
+    && docker compose exec -T nginx nginx -s reload \
+    && success "Nginx recarregado" \
+    || warn "Falha ao recarregar nginx. Verifique: docker compose logs nginx"
+
 info "Aguardando backend ficar disponível..."
 for i in $(seq 1 30); do
   if docker compose exec -T backend wget -qO- http://localhost:3000/ >/dev/null 2>&1; then
