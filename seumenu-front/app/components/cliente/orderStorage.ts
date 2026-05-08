@@ -8,6 +8,7 @@ export type OrderState = {
   total: string;
   createdAt: string;
   statusId?: number;
+  acceptedAt?: string;
   nomeCliente?: string;
   telefoneCliente?: string;
   formaPagamento?: string;

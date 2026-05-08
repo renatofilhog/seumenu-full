@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsHexColor, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
+import { IsHexColor, IsInt, IsNotEmpty, IsOptional, IsString, IsUrl, Min } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateStoreDto {
   @ApiProperty()
@@ -43,4 +44,11 @@ export class CreateStoreDto {
   @ApiProperty({ required: false })
   @IsOptional()
   habilitaVerificacaoMesa?: boolean;
+
+  @ApiProperty({ required: false, description: 'Tempo medio de preparo em minutos' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  tempoMedioPreparo?: number;
 }

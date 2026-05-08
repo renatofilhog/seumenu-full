@@ -47,6 +47,10 @@ export class Store {
   @Column({ name: 'habilita_verificacao_mesa', default: false })
   habilitaVerificacaoMesa: boolean;
 
+  @ApiProperty({ required: false })
+  @Column({ name: 'tempo_medio_preparo', nullable: true })
+  tempoMedioPreparo?: number;
+
   @ApiProperty()
   @Column({ default: true })
   ativo: boolean;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { apiRequest } from "../../lib/api";
 import { loadOrder, saveOrder, type OrderState } from "./orderStorage";
 import { useOrderStatusEvents } from "./useOrderStatusEvents";
@@ -15,6 +15,10 @@ type PedidoStatusResponse = {
   statusId: number;
 };
 
+type StoreInfo = {
+  tempoMedioPreparo?: number;
+};
+
 export function OrderTrackingClient() {
   const [order, setOrder] = useState<OrderState | null>(() => loadOrder());
   const orderIdentifier = order?.pedidoNumero ?? order?.pedidoId ?? null;
@@ -23,6 +27,11 @@ export function OrderTrackingClient() {
     order?.statusId ?? null,
   );
   const [usePollingFallback, setUsePollingFallback] = useState(false);
+  const [storeInfo, setStoreInfo] = useState<StoreInfo | null>(null);
+  const [acceptedAt, setAcceptedAt] = useState<string | null>(
+    order?.acceptedAt ?? null,
+  );
+  const prevStatusIdRef = useRef<number | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -40,6 +49,45 @@ export function OrderTrackingClient() {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    apiRequest<StoreInfo[]>("/store", { method: "GET", authScope: "public" })
+      .then((data) => {
+        if (!active) return;
+        setStoreInfo(data?.[0] ?? null);
+      })
+      .catch(() => {
+        if (!active) return;
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const preparandoStatusId = useMemo(
+    () => statusList.find((s) => s.value === "preparando")?.id ?? null,
+    [statusList],
+  );
+
+  // Detect the transition into "preparando" to record the acceptance timestamp.
+  useEffect(() => {
+    const prev = prevStatusIdRef.current;
+    prevStatusIdRef.current = currentStatusId;
+
+    if (!currentStatusId || !preparandoStatusId || acceptedAt) return;
+    // Only record when transitioning FROM another status (not on initial page load).
+    if (currentStatusId === preparandoStatusId && prev !== null && prev !== preparandoStatusId) {
+      const now = new Date().toISOString();
+      setAcceptedAt(now);
+      setOrder((prevOrder) => {
+        if (!prevOrder) return prevOrder;
+        const updated = { ...prevOrder, acceptedAt: now };
+        saveOrder(updated);
+        return updated;
+      });
+    }
+  }, [currentStatusId, preparandoStatusId, acceptedAt]);
 
   const applyStatusUpdate = useCallback((statusId: number | null) => {
     setCurrentStatusId(statusId);
@@ -136,10 +184,25 @@ export function OrderTrackingClient() {
     [currentStatusId, statusList],
   );
 
+  const isPreparando = useMemo(
+    () =>
+      currentStatusId != null &&
+      statusList.some((s) => s.id === currentStatusId && s.value === "preparando"),
+    [currentStatusId, statusList],
+  );
+
   const flowStatuses = useMemo(
     () => statusList.filter((item) => item.value !== "cancelado"),
     [statusList],
   );
+
+  const etaTime = useMemo(() => {
+    const tempo = storeInfo?.tempoMedioPreparo;
+    if (!tempo || !acceptedAt) return null;
+    const ms = new Date(acceptedAt).getTime();
+    if (Number.isNaN(ms)) return null;
+    return new Date(ms + tempo * 60_000);
+  }, [storeInfo, acceptedAt]);
 
   if (!order) {
     return (
@@ -169,8 +232,10 @@ export function OrderTrackingClient() {
                   <span
                     key={status.id}
                     className={`h-3 w-12 rounded-full ${
-                      index <= statusIndex
+                      index < statusIndex
                         ? "bg-[color:var(--color-status-success)]"
+                        : index === statusIndex
+                        ? "animate-pulse bg-[color:var(--color-status-success)]"
                         : "border border-[color:var(--color-status-success)]/50 bg-[color:var(--color-white)]"
                     }`}
                   />
@@ -183,6 +248,28 @@ export function OrderTrackingClient() {
                 ))}
           </div>
         </section>
+
+        {isPreparando && storeInfo?.tempoMedioPreparo ? (
+          <section className="rounded-[var(--radius-sm)] bg-[color:var(--color-status-info)]/8 px-4 py-3">
+            <p className="text-xs font-semibold text-[color:var(--color-blue-800)]/60">
+              Tempo estimado de preparo
+            </p>
+            <p className="text-base font-bold text-[color:var(--color-blue-800)]">
+              ~{storeInfo.tempoMedioPreparo} min
+            </p>
+            {etaTime ? (
+              <p className="mt-1 text-xs text-[color:var(--color-blue-800)]/60">
+                Previsao de finalizacao:{" "}
+                <span className="font-semibold">
+                  {etaTime.toLocaleTimeString("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
+              </p>
+            ) : null}
+          </section>
+        ) : null}
 
         <section className="rounded-[var(--radius-sm)] bg-[color:var(--color-white)] p-4 shadow-[var(--shadow-soft-lg)]">
           <div className="space-y-2">

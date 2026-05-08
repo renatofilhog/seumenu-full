@@ -15,6 +15,7 @@ type Store = {
   localizacao?: string;
   corFundo?: string;
   habilitaVerificacaoMesa?: boolean;
+  tempoMedioPreparo?: number;
 };
 
 type StoreFormState = {
@@ -30,6 +31,7 @@ type StoreFormState = {
   localizacao: string;
   corFundo: string;
   habilitaVerificacaoMesa: boolean;
+  tempoMedioPreparo: number | "";
 };
 
 const emptyForm: StoreFormState = {
@@ -45,6 +47,7 @@ const emptyForm: StoreFormState = {
   localizacao: "",
   corFundo: "#ffffff",
   habilitaVerificacaoMesa: false,
+  tempoMedioPreparo: "",
 };
 
 function buildFormData(form: StoreFormState): FormData {
@@ -56,6 +59,10 @@ function buildFormData(form: StoreFormState): FormData {
   payload.append("localizacao", form.localizacao);
   payload.append("corFundo", form.corFundo);
   payload.append("habilitaVerificacaoMesa", String(form.habilitaVerificacaoMesa));
+
+  if (form.tempoMedioPreparo !== "") {
+    payload.append("tempoMedioPreparo", String(form.tempoMedioPreparo));
+  }
 
   if (form.cnpj) payload.append("cnpj", form.cnpj);
   if (form.bannerUrl) payload.append("bannerUrl", form.bannerUrl);
@@ -98,6 +105,7 @@ export function StoreClient() {
         localizacao: data.localizacao ?? "",
         corFundo: data.corFundo ?? "#ffffff",
         habilitaVerificacaoMesa: Boolean(data.habilitaVerificacaoMesa),
+        tempoMedioPreparo: data.tempoMedioPreparo ?? "",
       });
     } catch (err) {
       if (err instanceof ApiRequestError && err.status === 404) {
@@ -300,6 +308,22 @@ export function StoreClient() {
               }
             />
             Habilitar verificacao de mesa no fluxo do cliente
+          </label>
+          <label className="text-xs text-[color:var(--brand-navy)]/70">
+            Tempo medio de preparo (min)
+            <input
+              className="mt-2 w-full rounded-xl border border-[color:var(--brand-navy)]/10 bg-white px-3 py-2 text-sm text-[color:var(--brand-ink)]"
+              type="number"
+              min="1"
+              value={form.tempoMedioPreparo}
+              onChange={(event) =>
+                setForm((prev) => ({
+                  ...prev,
+                  tempoMedioPreparo: event.target.value ? Number(event.target.value) : "",
+                }))
+              }
+              placeholder="Ex: 20"
+            />
           </label>
           <label className="text-xs text-[color:var(--brand-navy)]/70">
             URL do banner
