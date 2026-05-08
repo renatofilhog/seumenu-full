@@ -17,6 +17,7 @@ export type CartItem = {
 export type CartState = {
   items: CartItem[];
   mesa?: number;
+  mesaFromLink?: boolean;
   expiresAt: number;
 };
 

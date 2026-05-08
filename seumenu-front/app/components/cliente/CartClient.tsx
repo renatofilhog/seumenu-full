@@ -74,8 +74,12 @@ function formatPhoneInput(value: string): string {
 export function CartClient() {
   const searchParams = useSearchParams();
   const mesaParam = searchParams.get("mesa");
-  const mesaFixed = mesaParam ? Number(mesaParam) : null;
   const initialCart = useMemo(() => loadCart(), []);
+  const mesaFixed = mesaParam
+    ? Number(mesaParam)
+    : initialCart?.mesaFromLink && initialCart.mesa
+      ? initialCart.mesa
+      : null;
   const [cartItems, setCartItems] = useState<CartItem[]>(
     initialCart?.items ?? [],
   );
@@ -158,6 +162,7 @@ export function CartClient() {
       {
         items: cartItems,
         mesa: selectedMesa?.id ?? mesaFixed ?? mesa ?? undefined,
+        mesaFromLink: mesaFixed !== null ? true : undefined,
       },
       DEFAULT_CART_TTL_MINUTES,
     );

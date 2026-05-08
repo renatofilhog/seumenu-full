@@ -100,6 +100,7 @@ export function ClienteHome() {
         saveCart({
           items: cart?.items ?? [],
           mesa: mesaId,
+          mesaFromLink: true,
         });
       })
       .catch(() => {
