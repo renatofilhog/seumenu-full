@@ -1,6 +1,7 @@
 import { BadRequestException, Body, Controller, Get, MessageEvent, Param, Patch, Post, Query, Req, Sse, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOkResponse } from '@nestjs/swagger';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, merge, Observable } from 'rxjs';
+import { interval } from 'rxjs';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { Pedido } from './entities/pedido.entity';
@@ -50,12 +51,19 @@ export class PedidoController {
   @ApiOkResponse({ description: 'Stream SSE tenant-scoped de eventos de pedidos.' })
   streamEvents(@Req() req?: PedidoRequest): Observable<MessageEvent> {
     const tenantId = this.resolveTenantId(req);
-    return this.pedidoService.getPedidoEvents().pipe(
+
+    const events$ = this.pedidoService.getPedidoEvents().pipe(
       filter((event) => event.pedido.tenantId === tenantId),
-      map((event: PedidoEvent) => ({
-        data: event,
-      })),
+      map((event: PedidoEvent) => ({ data: event } as MessageEvent)),
     );
+
+    // Keepalive ping every 25s prevents nginx from closing idle SSE connections.
+    // The client ignores payloads with no pedido.id.
+    const keepalive$ = interval(25_000).pipe(
+      map(() => ({ data: { type: 'ping' } } as MessageEvent)),
+    );
+
+    return merge(events$, keepalive$);
   }
 
   @Get(':id')

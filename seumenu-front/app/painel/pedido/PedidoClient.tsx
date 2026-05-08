@@ -349,9 +349,22 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
     syncPedidoFromEvent(normalizedPedido);
   }, [playNewOrderBell, syncPedidoFromEvent]);
 
-  usePedidoEvents({
+  const refetchKanban = useCallback(async () => {
+    try {
+      const data = await apiRequest<KanbanColumn[]>("/pedido-status/kanban", {
+        method: "GET",
+      });
+      const normalized = normalizeKanban(data);
+      setKanbanState(normalized.length ? normalized : buildKanban([]));
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const { connected: sseConnected } = usePedidoEvents({
     enabled: !error,
     onPedidoEvent: handlePedidoEvent,
+    onReconnected: refetchKanban,
   });
 
   async function applyStatusChange(
@@ -473,9 +486,17 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
               Somente pedidos das ultimas 24 horas. Pedidos cancelados saem desta visao.
             </p>
           </div>
-          <span className="rounded-full bg-[color:var(--color-green-100)] px-4 py-1 text-xs font-bold text-[color:var(--color-green-700)]">
-            Atualizacao em tempo real
-          </span>
+          {!error && (
+            <span
+              className={`rounded-full px-4 py-1 text-xs font-bold ${
+                sseConnected
+                  ? "bg-[color:var(--color-green-100)] text-[color:var(--color-green-700)]"
+                  : "bg-[color:var(--color-status-warning)]/10 text-[color:var(--color-status-warning)]"
+              }`}
+            >
+              {sseConnected ? "Atualizacao em tempo real" : "Reconectando..."}
+            </span>
+          )}
         </div>
         <div className="grid gap-4 lg:grid-cols-3">
           {kanbanState.map((column) => (
