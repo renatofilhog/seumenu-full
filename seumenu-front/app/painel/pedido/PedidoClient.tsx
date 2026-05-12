@@ -744,14 +744,18 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
       >
         {printTarget ? (
           <section className="print-order-ticket bg-white text-black">
-            <header className="border-b border-dashed border-black pb-3 text-center">
-              <p className="text-[15px] font-bold">{tenantName}</p>
-              <p className="mt-1 text-[13px] font-bold">
+            <header className="border-b border-dashed border-black pb-4 text-center">
+              <p className="text-[22px] font-bold">{tenantName}</p>
+              <p className="mt-2 text-[26px] font-extrabold">
                 Comanda #{String(printTarget.numero).padStart(5, "0")}
               </p>
             </header>
 
-            <div className="mt-3 space-y-1 text-[11px]">
+            <div className="mt-4 border-y border-dashed border-black py-3 text-center text-[28px] font-extrabold">
+              MESA {printTarget.mesa?.numero || "-"}
+            </div>
+
+            <div className="mt-4 space-y-2 text-[18px]">
               <p>
                 <span className="font-bold">Cliente:</span>{" "}
                 {printTarget.nomeCliente?.trim() || "-"}
@@ -761,23 +765,19 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
                 {printTarget.telefoneCliente?.trim() || "-"}
               </p>
               <p>
-                <span className="font-bold">Mesa:</span>{" "}
-                {printTarget.mesa?.numero || "-"}
-              </p>
-              <p>
                 <span className="font-bold">Data:</span>{" "}
                 {formatOrderDate(printTarget.data)}
               </p>
             </div>
 
-            <div className="mt-3 border-t border-dashed border-black pt-3">
+            <div className="mt-4 border-t border-dashed border-black pt-4">
               {printTarget.itens?.map((item) => (
-                <article key={item.id} className="mb-3 break-inside-avoid text-[11px]">
-                  <p className="font-bold">
+                <article key={item.id} className="mb-4 break-inside-avoid text-[18px]">
+                  <p className="text-[20px] font-extrabold leading-tight">
                     {item.qtSolicitada}x {item.produto?.nome ?? `Item #${item.id}`}
                   </p>
                   {item.additionals?.length ? (
-                    <p className="mt-1 pl-3">
+                    <p className="mt-2 pl-3 text-[16px]">
                       +{" "}
                       {item.additionals
                         .map((additional) => additional.nome?.trim() || "Adicional")
@@ -785,14 +785,14 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
                     </p>
                   ) : null}
                   {item.observacao?.trim() ? (
-                    <p className="mt-1 pl-3">Obs: {item.observacao.trim()}</p>
+                    <p className="mt-2 pl-3 text-[16px]">Obs: {item.observacao.trim()}</p>
                   ) : null}
                 </article>
               ))}
             </div>
 
-            <footer className="border-t border-dashed border-black pt-3 text-[11px]">
-              <p className="flex items-center justify-between font-bold">
+            <footer className="border-t border-dashed border-black pt-4 text-[22px]">
+              <p className="flex items-center justify-between text-[24px] font-extrabold">
                 <span>Total</span>
                 <span>{formatCurrency(printTarget.valorTotal)}</span>
               </p>
@@ -825,8 +825,11 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
             width: 72mm;
             padding: 0;
             font-family: Arial, sans-serif;
+            line-height: 1.35;
             color: #000;
             background: #fff;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
           }
         }
       `}</style>

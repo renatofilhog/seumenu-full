@@ -25,3 +25,7 @@ seumenu-front/node_modules/
 # Logs
 *.log
 nginx_logs/
+
+# IDE
+.idea/
+.vscode/
