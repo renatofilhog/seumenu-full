@@ -743,7 +743,7 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
         className="pointer-events-none fixed -left-[200vw] top-0 hidden print:block"
       >
         {printTarget ? (
-          <section className="print-order-ticket bg-white text-black">
+          <section className="print-order-ticket text-black">
             <header className="border-b border-dashed border-black pb-4 text-center">
               <p className="text-[22px] font-bold">{tenantName}</p>
               <p className="mt-2 text-[26px] font-extrabold">
@@ -827,9 +827,7 @@ export function PedidoClient({ kanban, error }: PedidoClientProps) {
             font-family: Arial, sans-serif;
             line-height: 1.35;
             color: #000;
-            background: #fff;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            background: transparent;
           }
         }
       `}</style>
